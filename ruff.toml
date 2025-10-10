@@ -1,0 +1,18 @@
+fixable = ["ALL"]
+fix = true
+exclude = ["**/tests/**", "**/venv/**"]
+
+line-length = 100
+
+
+[lint]
+select = ["ALL"]
+ignore = [
+    "TD003",  # Disable TODO issue
+    "D100",   # Missing docstring in public module
+    "EXE002", # Use of `exec` statement
+    "D104",   # Missing docstring in public package
+    "D203",   # 1 blank line required before class docstring
+    "D213",   # multi-line-summary-second-line
+    "COM812", # missing-trailing-comma
+]
