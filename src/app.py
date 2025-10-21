@@ -51,3 +51,10 @@ def health() -> str:
         "timestamp": timestamp,
     }
     return response, 200
+
+
+@app.route("/error")
+def error() -> str:
+    """Simulate an error."""
+    response = {"status": "error", "message": "An error occurred"}
+    return response, 500
