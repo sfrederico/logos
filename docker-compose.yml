@@ -1,0 +1,12 @@
+services:
+  app:
+    container_name: logos_app
+    image: logos_app_image
+    build: 
+      context: .
+      dockerfile: app/Dockerfile
+    ports:
+      - "5000:5000"
+    stdin_open: true
+    tty: true
+
