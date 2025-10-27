@@ -9,6 +9,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy source code and README file
 COPY app/src/ .
 COPY README.md .
+COPY .env .
 
 # Run the application on container start
 CMD ["flask", "--app", "app", "run", "--host=0.0.0.0"]
