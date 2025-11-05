@@ -2,6 +2,7 @@ services:
   app:
     container_name: logos_app
     image: logos_app_image
+    env_file: .env
     build: 
       context: .
       dockerfile: app/Dockerfile
