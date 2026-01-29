@@ -3,6 +3,7 @@ from pathlib import Path
 
 from flask import Flask, render_template
 from markdown2 import markdown
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 from .db import get_db, init_db
 
@@ -12,6 +13,15 @@ BRAZIL_TZ = timezone(timedelta(hours=-3))
 def create_app() -> Flask:
     """Create and configure the Flask application."""
     app = Flask(__name__)
+
+    app.wsgi_app = ProxyFix(
+        app.wsgi_app,
+        x_for=1,
+        x_proto=1,
+        x_host=1,
+        x_port=1,
+        x_prefix=1,
+    )
 
     # Store the application start time
     app_uptime = datetime.now(tz=BRAZIL_TZ)
