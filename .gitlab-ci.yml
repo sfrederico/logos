@@ -1,20 +1,37 @@
 stages:
   - lint
+  - test
 
 variables:
-  PIP_CACHE_DIR: .cache/pip
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+cache:
+  key: pip-cache
+  paths:
+    - .cache/pip
+  policy: pull-push
 
 lint-job:
   stage: lint
   image: python:3.14-alpine
   before_script:
     - pip install --upgrade pip
-    - pip install ruff
+    - pip install --cache-dir=$PIP_CACHE_DIR ruff
   script:
     - ruff check ./app/src
-  cache:
-    key: pip-cache
-    paths:
-      - .cache/pip
-    policy: pull-push
   allow_failure: true
+
+test-job:
+  stage: test
+  image: python:3.14-alpine
+  before_script:
+    - pip install --upgrade pip
+    - pip install --cache-dir=$PIP_CACHE_DIR -r ./app/requirements.txt
+  script:
+    - pytest --cov --cov-config=./app/tests/.coveragerc --cov-report=xml ./app/tests
+  coverage: '/TOTAL.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/'
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: ./app/tests/.coverage.xml
