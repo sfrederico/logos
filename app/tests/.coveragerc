@@ -1,5 +1,11 @@
 [run]
-source = ../src/
+source = ./app/src/
 omit =
     */__init__.py
     */settings.py
+
+[report]
+fail_under = 75
+
+[xml]
+output = ./app/tests/.coverage.xml

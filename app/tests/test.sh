@@ -1,2 +1,2 @@
 #!/bin/bash
-pytest --cov --cov-config=.coveragerc .
+pytest --cov=../src/ --cov-config=/dev/null .
