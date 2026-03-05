@@ -28,7 +28,7 @@ test-job:
     - pip install --upgrade pip
     - pip install --cache-dir=$PIP_CACHE_DIR -r ./app/requirements.txt
   script:
-    - pytest --cov --cov-config=./app/tests/.coveragerc --cov-report=xml ./app/tests
+    - pytest --cov --cov-config=./app/tests/.coveragerc --cov-report=xml --cov-report=term-missing ./app/tests
   coverage: '/TOTAL.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/'
   artifacts:
     reports:
